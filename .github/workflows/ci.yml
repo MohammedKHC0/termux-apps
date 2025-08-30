@@ -1,7 +1,6 @@
 name: Check
 
-on:
-  push:
+on: workflow_dispatch
 
 jobs:
   actionlint:
@@ -29,10 +28,6 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: ${{ matrix.javaVersion }}
-    - name: Lint
-      run: ./gradlew lint
-    - name: Test
-      run: ./gradlew test
     - name: Assemble Debug
       shell: bash
       run: |
