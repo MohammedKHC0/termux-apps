@@ -15,7 +15,7 @@ jobs:
       run: ${{ steps.get_actionlint.outputs.executable }} -color
 
   check:
-    name: Check gradle build (java ${{ matrix.javaVersion }})
+    name: Check gradle build
     runs-on: ubuntu-latest
     steps:
     - name: Clone repository
