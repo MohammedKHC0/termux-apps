@@ -28,6 +28,7 @@ jobs:
     - name: Assemble Releasae
       shell: bash
       run: |
+        ./gradlew termux-app:downloadPrebuilt
         ./gradlew assembleRelease
         DIRNAME=upload/termux-debug-apks-"$GITHUB_SHA"
         mkdir -p "$DIRNAME"
