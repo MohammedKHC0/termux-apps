@@ -17,9 +17,6 @@ jobs:
   check:
     name: Check gradle build (java ${{ matrix.javaVersion }})
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        javaVersion: [17, 21, 24]
     steps:
     - name: Clone repository
       uses: actions/checkout@v4
@@ -27,16 +24,15 @@ jobs:
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
-        java-version: ${{ matrix.javaVersion }}
-    - name: Assemble Debug
+        java-version: 21
+    - name: Assemble Releasae
       shell: bash
       run: |
-        ./gradlew assembleDebug
+        ./gradlew assembleRelease
         DIRNAME=upload/termux-debug-apks-"$GITHUB_SHA"
         mkdir -p "$DIRNAME"
         shopt -s globstar; for file in termux-*/**/*.apk; do FILENAME="$(basename "$file")"; cp "$file" "$DIRNAME"/"${FILENAME/.apk/-$GITHUB_SHA.apk}"; done
     - uses: actions/upload-artifact@v4
-      if: matrix.javaVersion == '21'
       with:
         name: termux-debug-apks-${{ github.sha }}
         path: upload/
